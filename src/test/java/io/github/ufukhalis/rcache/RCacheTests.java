@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 public class RCacheTests {
 
     final RCache<String, String> rCache = new RCache.Builder()
-            .maxSize(10)
+            .maxSize(5)
             .expire(Duration.ofSeconds(2))
+            .cachePoolSize(5)
             .build();
 
     @Test
@@ -31,6 +33,16 @@ public class RCacheTests {
     void test_remove_shouldRemove_value() {
         rCache.put("key", "value").block();
         String value = rCache.remove("key")
+                .flatMap(ignore -> rCache.get("key")).block();
+
+        Assertions.assertEquals(null, value);
+    }
+
+    @Test
+    void test_removeAll_shouldRemove_allValues() {
+        rCache.put("key", "value").block();
+        rCache.put("key1", "value").block();
+        String value = rCache.removeAll(Arrays.asList("key", "key1"))
                 .flatMap(ignore -> rCache.get("key")).block();
 
         Assertions.assertEquals(null, value);

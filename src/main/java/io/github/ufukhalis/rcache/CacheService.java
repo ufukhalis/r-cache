@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CacheService<Key, Value> {
 
     private final ConcurrentHashMap<Key, CacheModel> CACHE_MAP = new ConcurrentHashMap<>();
-    private final CacheServiceEventHandler eventHandler = new CacheServiceEventHandler();
+    private final EventHandler<CacheService> eventHandler = new CacheServiceEventHandler();
 
     private final Duration duration;
     private final int maxSize;
@@ -33,7 +33,6 @@ public class CacheService<Key, Value> {
     }
 
     Mono<Void> remove(Key key) {
-
         return Mono.fromCallable(() -> CACHE_MAP.remove(key)).then();
     }
 
@@ -65,7 +64,7 @@ public class CacheService<Key, Value> {
         return removeAll(keys);
     }
 
-    boolean cacheNeedToBeCleaned() {
+    private boolean cacheNeedToBeCleaned() {
         return (double) CACHE_MAP.size()/ maxSize >= 0.7;
     }
 }
