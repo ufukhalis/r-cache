@@ -35,6 +35,10 @@ public class RCache <Key, Value> {
         return cacheService.get(key).subscribeOn(Schedulers.fromExecutor(executorService));
     }
 
+    public int cachedElementSize() {
+        return cacheService.cachedElementSize();
+    }
+
     static class Builder {
         private int maxSize = 100;
         private int cachePoolSize = 10;

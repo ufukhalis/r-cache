@@ -64,7 +64,11 @@ public class CacheService<Key, Value> {
         return removeAll(keys);
     }
 
+    int cachedElementSize() {
+        return CACHE_MAP.size();
+    }
+
     private boolean cacheNeedToBeCleaned() {
-        return (double) CACHE_MAP.size()/ maxSize >= 0.7;
+        return (double) cachedElementSize()/ maxSize >= 0.7;
     }
 }

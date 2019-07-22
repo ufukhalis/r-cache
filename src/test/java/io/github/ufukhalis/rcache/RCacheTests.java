@@ -6,12 +6,13 @@ import reactor.test.StepVerifier;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class RCacheTests {
 
     final RCache<String, String> rCache = new RCache.Builder()
             .maxSize(5)
-            .expire(Duration.ofSeconds(2))
+            .expire(Duration.ofSeconds(1))
             .cachePoolSize(5)
             .build();
 
@@ -46,5 +47,20 @@ public class RCacheTests {
                 .flatMap(ignore -> rCache.get("key")).block();
 
         Assertions.assertEquals(null, value);
+    }
+
+    @Test
+    void test_cacheServiceEvent_shouldBe_triggered() {
+        IntStream.range(0, 10)
+                .forEach(index -> {
+                    try {
+                        rCache.put("key" + index, "value" + index);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                    }
+                });
+
+        Assertions.assertTrue(rCache.cachedElementSize() < 10);
     }
 }
