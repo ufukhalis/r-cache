@@ -4,7 +4,7 @@
 
 R-Cache
 ===================
-Simple in-memory reactive cache option.
+Reactive simple in-memory cache option.
 
 How to Use
 ------------
