@@ -50,7 +50,7 @@ public class RCacheTests {
     }
 
     @Test
-    void test_cacheServiceEvent_shouldBe_triggered() {
+    void test_cacheServiceEvent_shouldBe_triggered() throws InterruptedException {
         IntStream.range(0, 10)
                 .forEach(index -> {
                     try {
@@ -60,7 +60,7 @@ public class RCacheTests {
 
                     }
                 });
-
+        Thread.sleep(2000);
         Assertions.assertTrue(rCache.cachedElementSize() < 10);
     }
 }
