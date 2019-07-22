@@ -8,7 +8,6 @@ public class CacheServiceEventHandler extends EventHandler<CacheService> {
     void consume() {
         CacheService eventClass = EVENTS.peek();
         eventClass.clearTheCache()
-                .log()
                 .doOnSuccess(ignore -> EVENTS.poll())
                 .subscribeOn(Schedulers.parallel())
                 .subscribe();

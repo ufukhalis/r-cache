@@ -54,13 +54,12 @@ public class RCacheTests {
         IntStream.range(0, 10)
                 .forEach(index -> {
                     try {
-                        rCache.put("key" + index, "value" + index);
+                        rCache.put("key" + index, "value" + index).block();
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
 
                     }
                 });
-        Thread.sleep(2000);
         Assertions.assertTrue(rCache.cachedElementSize() < 10);
     }
 }
