@@ -6,7 +6,7 @@
 
     <groupId>io.github.ufukhalis</groupId>
     <artifactId>r-cache</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <description>Reactive simple in-memory cache</description>
     <url>https://github.com/ufukhalis/r-cache</url>
 
