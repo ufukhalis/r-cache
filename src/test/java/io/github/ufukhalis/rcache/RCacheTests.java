@@ -50,7 +50,7 @@ public class RCacheTests {
     }
 
     @Test
-    void test_cacheServiceEvent_shouldBe_triggered() throws InterruptedException {
+    void test_cacheServiceEvent_shouldBe_triggered() {
         IntStream.range(0, 10)
                 .forEach(index -> {
                     try {
